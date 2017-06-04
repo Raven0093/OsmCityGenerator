@@ -51,17 +51,18 @@ public class DataManager : MonoBehaviour
         osmData = null;
         if (!ConfigManager.Instance.Load(Assets.Scripts.Constants.Constants.ConfigFile))
         {
-            DebugConsolManager.Instance.UpdateUI(debugConsoleText);
+            DebugConsoleManager.Instance.UpdateUI(debugConsoleText);
             dataManagerFinished = true;
         }
     }
 
     void Update()
     {
-        if (ConfigManager.Instance.DebugConsole && DebugConsolManager.Instance.IsUpdate)
+        if (ConfigManager.Instance.DebugConsole && DebugConsoleManager.Instance.IsUpdate)
         {
-            DebugConsolManager.Instance.UpdateUI(debugConsoleText);
+            DebugConsoleManager.Instance.UpdateUI(debugConsoleText);
         }
+
         if (!dataManagerFinished)
         {
             if (!dataParserFinished)
@@ -70,7 +71,7 @@ public class DataManager : MonoBehaviour
                 {
                     dataParserStarted = true;
 
-                    DebugConsolManager.Instance.AddLineWithTime("Data loading");
+                    DebugConsoleManager.Instance.AddLineWithTime("Data loading");
 
                     GetOsmData();
                 }
@@ -80,12 +81,9 @@ public class DataManager : MonoBehaviour
                     {
                         if (osmData != null)
                         {
-                            DebugConsolManager.Instance.AddLineWithTime("Data loaded");
+                            DebugConsoleManager.Instance.AddLineWithTime("Data loaded");
 
-                            osmData.FillWaysNode();
-                            osmData.RemoveNodesWithoutTags();
-                            osmData.RemoveRelationsWithoutMembers();
-                            osmData.RemoveWaysWithoutNodes();
+                            ProcessOsmData();
 
                             dataParserFinished = true;
                         }
@@ -100,7 +98,13 @@ public class DataManager : MonoBehaviour
         }
     }
 
-
+    private void ProcessOsmData()
+    {
+        osmData.FillWaysNode();
+        osmData.RemoveNodesWithoutTags();
+        osmData.RemoveRelationsWithoutMembers();
+        osmData.RemoveWaysWithoutNodes();
+    }
 
     private void AddDataToScene()
     {
@@ -129,7 +133,6 @@ public class DataManager : MonoBehaviour
             if (ConfigManager.Instance.PowerTowers && nodeDic.Value.Tags.ContainsKey(TagKeyEnum.Power))
             {
                 Assets.Scripts.Factories.Osm.PowerFactory.CreatePower(nodeDic.Value, osmData.bounds, powerTowers.transform);
-                continue;
             }
 
         }
@@ -139,27 +142,22 @@ public class DataManager : MonoBehaviour
             if (ConfigManager.Instance.PowerLines && wayDic.Value.Tags.ContainsKey(TagKeyEnum.Power))
             {
                 Assets.Scripts.Factories.Osm.PowerFactory.CreatePower(wayDic.Value, osmData.bounds, powerLines.transform);
-                continue;
             }
-            if (ConfigManager.Instance.Buildings && wayDic.Value.Tags.ContainsKey(TagKeyEnum.Building))
+            else if (ConfigManager.Instance.Buildings && wayDic.Value.Tags.ContainsKey(TagKeyEnum.Building))
             {
                 Assets.Scripts.Factories.Osm.BuildingFactory.CreateBuilding(wayDic.Value, osmData.bounds, buildings.transform);
-                continue;
             }
-            if (ConfigManager.Instance.HighWays && wayDic.Value.Tags.ContainsKey(TagKeyEnum.Highway))
+            else if (ConfigManager.Instance.HighWays && wayDic.Value.Tags.ContainsKey(TagKeyEnum.Highway))
             {
                 Assets.Scripts.Factories.Osm.HighwayFactory.CreateHighway(wayDic.Value, osmData.bounds, highways.transform);
-                continue;
             }
-            if (ConfigManager.Instance.RailWays && wayDic.Value.Tags.ContainsKey(TagKeyEnum.Railway))
+            else if (ConfigManager.Instance.RailWays && wayDic.Value.Tags.ContainsKey(TagKeyEnum.Railway))
             {
                 Assets.Scripts.Factories.Osm.RailWaysFactory.CreateRailway(wayDic.Value, osmData.bounds, railways.transform);
-                continue;
             }
-            if (ConfigManager.Instance.Landuses && (wayDic.Value.Tags.ContainsKey(TagKeyEnum.Landuse) || wayDic.Value.Tags.ContainsKey(TagKeyEnum.Leisure) || wayDic.Value.Tags.ContainsKey(TagKeyEnum.Amenity)))
+            else if (ConfigManager.Instance.Landuses && (wayDic.Value.Tags.ContainsKey(TagKeyEnum.Landuse) || wayDic.Value.Tags.ContainsKey(TagKeyEnum.Leisure) || wayDic.Value.Tags.ContainsKey(TagKeyEnum.Amenity)))
             {
                 Assets.Scripts.Factories.Osm.FlatAreaFactory.CreateArea(wayDic.Value, osmData.bounds, flatArea.transform);
-                continue;
             }
         }
     }

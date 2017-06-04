@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Factories.Osm
 {
-    public class MeshFactory
+    public class OsmMeshFactory
     {
         public static GameObject CreateMesh(OsmWay areaData, OsmBounds bounds)
         {
@@ -27,16 +27,18 @@ namespace Assets.Scripts.Factories.Osm
 
             if (buildingCorners.Count > 2)
             {
-                Mesh mesh = Assets.Scripts.Factories.Unity.MeshFactory.CreateMesh(buildingCorners);
+                Mesh mesh = Assets.Scripts.Factories.Unity.UnityMeshFactory.CreateMesh(buildingCorners);
                 mf.mesh = mesh;
             }
 
             return result;
         }
 
-        public static void CreateMesh(OsmWay areaData, OsmBounds bounds, Transform parent)
+        public static GameObject CreateMesh(OsmWay areaData, OsmBounds bounds, Transform parent)
         {
-            CreateMesh(areaData, bounds).transform.parent = parent;
+            GameObject result = CreateMesh(areaData, bounds);
+            result.transform.parent = parent;
+            return result;
         }
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Factories.Unity
 {
-    public class MeshFactory
+    public class UnityMeshFactory
     {
         public static Mesh CreateMesh(List<Vector3> verts)
         {

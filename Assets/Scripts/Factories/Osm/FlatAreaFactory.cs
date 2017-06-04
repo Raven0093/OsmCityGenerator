@@ -58,7 +58,7 @@ namespace Assets.Scripts.Factories.Osm
 
                 if (material != null)
                 {
-                    GameObject result = MeshFactory.CreateMesh(areaData, bounds);
+                    GameObject result = OsmMeshFactory.CreateMesh(areaData, bounds);
                     if (areaData.Tags.ContainsKey(TagKeyEnum.Name))
                     {
                         result.name = areaData.Tags[TagKeyEnum.Name];

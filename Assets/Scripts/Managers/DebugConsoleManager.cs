@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DebugConsolManager
+public class DebugConsoleManager
 {
-    private static DebugConsolManager _instance;
+    private static DebugConsoleManager _instance;
 
-    public static DebugConsolManager Instance
+    public static DebugConsoleManager Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = new DebugConsolManager();
+                _instance = new DebugConsoleManager();
             }
             return _instance;
         }

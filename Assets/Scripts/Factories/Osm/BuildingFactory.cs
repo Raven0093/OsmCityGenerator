@@ -68,7 +68,7 @@ namespace Assets.Scripts.Factories.Osm
         }
         public static void CreateRoof(OsmWay buildingData, OsmBounds bounds, float height, Transform parent)
         {
-            GameObject roof = MeshFactory.CreateMesh(buildingData, bounds);
+            GameObject roof = OsmMeshFactory.CreateMesh(buildingData, bounds);
             roof.transform.localPosition = new Vector3(roof.transform.localPosition.x, height, roof.transform.localPosition.z);
             roof.name = "roof";
 

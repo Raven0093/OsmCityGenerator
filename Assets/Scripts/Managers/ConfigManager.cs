@@ -47,7 +47,7 @@ public class ConfigManager
 
         if (!File.Exists(Assets.Scripts.Constants.Constants.ConfigFile))
         {
-            DebugConsolManager.Instance.AddLineWithTime("Config file not exists");
+            DebugConsoleManager.Instance.AddLineWithTime("Config file not exists");
             return false;
         }
         using (StreamReader inputile = new StreamReader(Assets.Scripts.Constants.Constants.ConfigFile))
@@ -143,7 +143,7 @@ public class ConfigManager
             }
             catch (Exception)
             {
-                DebugConsolManager.Instance.AddLineWithTime("Config parse exeption");
+                DebugConsoleManager.Instance.AddLineWithTime("Config parse exeption");
                 return false;
             }
 
@@ -152,25 +152,25 @@ public class ConfigManager
 
             if (pathBool && minLonBool && minLatBool && maxLonBool && maxLatBool)
             {
-                DebugConsolManager.Instance.AddLineWithTime("Load config data");
-                DebugConsolManager.Instance.AddLine("File path", FilePath);
-                DebugConsolManager.Instance.AddLine("MinLat", MinLat);
-                DebugConsolManager.Instance.AddLine("MinLon", MinLon);
-                DebugConsolManager.Instance.AddLine("MaxLat", MaxLat);
-                DebugConsolManager.Instance.AddLine("MaxLon", MaxLon);
+                DebugConsoleManager.Instance.AddLineWithTime("Load config data");
+                DebugConsoleManager.Instance.AddLine("File path", FilePath);
+                DebugConsoleManager.Instance.AddLine("MinLat", MinLat);
+                DebugConsoleManager.Instance.AddLine("MinLon", MinLon);
+                DebugConsoleManager.Instance.AddLine("MaxLat", MaxLat);
+                DebugConsoleManager.Instance.AddLine("MaxLon", MaxLon);
 
-                DebugConsolManager.Instance.AddLine("Console", DebugConsole);
-                DebugConsolManager.Instance.AddLine("Textures", Textures);
-                DebugConsolManager.Instance.AddLine("RailWays", RailWays);
-                DebugConsolManager.Instance.AddLine("PowerLines", PowerLines);
-                DebugConsolManager.Instance.AddLine("Buildings", Buildings);
-                DebugConsolManager.Instance.AddLine("PowerTowers", PowerTowers);
-                DebugConsolManager.Instance.AddLine("Landuses", Landuses);
+                DebugConsoleManager.Instance.AddLine("Console", DebugConsole);
+                DebugConsoleManager.Instance.AddLine("Textures", Textures);
+                DebugConsoleManager.Instance.AddLine("RailWays", RailWays);
+                DebugConsoleManager.Instance.AddLine("PowerLines", PowerLines);
+                DebugConsoleManager.Instance.AddLine("Buildings", Buildings);
+                DebugConsoleManager.Instance.AddLine("PowerTowers", PowerTowers);
+                DebugConsoleManager.Instance.AddLine("Landuses", Landuses);
                 return true;
             }
             else
             {
-                DebugConsolManager.Instance.AddLineWithTime("Config file without Osm file Path or lat, lon coords");
+                DebugConsoleManager.Instance.AddLineWithTime("Config file without Osm file Path or lat, lon coords");
                 return false;
             }
 
